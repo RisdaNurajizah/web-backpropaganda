@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Prediksi Diabetes dengan Neural Network</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f7f7f7; margin: 0; padding: 0; }
+        .container { max-width: 600px; margin: 40px auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);}
+        h1 { text-align: center; color: #2c3e50; }
+        form { display: flex; flex-direction: column; gap: 12px; }
+        label { font-weight: bold; }
+        input[type="number"] { padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+        button { padding: 10px; background: #27ae60; color: #fff; border: none; border-radius: 4px; font-size: 16px; cursor: pointer; }
+        button:hover { background: #219150; }
+        .result { margin-top: 20px; padding: 15px; border-radius: 4px; background: #eafaf1; color: #145a32; font-size: 18px; text-align: center; }
+        .error { background: #fdecea; color: #c0392b; }
+        .plot { margin-top: 30px; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Prediksi Diabetes</h1>
+        <form method="POST">
+            <label for="Pregnancies">Jumlah Kehamilan:</label>
+            <input type="number" step="1" min="0" name="Pregnancies" id="Pregnancies" required>
+
+            <label for="Glucose">Glukosa:</label>
+            <input type="number" step="any" min="0" name="Glucose" id="Glucose" required>
+
+            <label for="BloodPressure">Tekanan Darah:</label>
+            <input type="number" step="any" min="0" name="BloodPressure" id="BloodPressure" required>
+
+            <label for="SkinThickness">Ketebalan Kulit:</label>
+            <input type="number" step="any" min="0" name="SkinThickness" id="SkinThickness" required>
+
+            <label for="Insulin">Insulin:</label>
+            <input type="number" step="any" min="0" name="Insulin" id="Insulin" required>
+
+            <label for="BMI">BMI:</label>
+            <input type="number" step="any" min="0" name="BMI" id="BMI" required>
+
+            <label for="DiabetesPedigreeFunction">Fungsi Keturunan Diabetes:</label>
+            <input type="number" step="any" min="0" name="DiabetesPedigreeFunction" id="DiabetesPedigreeFunction" required>
+
+            <label for="Age">Usia:</label>
+            <input type="number" step="1" min="0" name="Age" id="Age" required>
+
+            <button type="submit">Prediksi</button>
+        </form>
+
+        {% if prediction %}
+            <div class="result{% if 'Error' in prediction %} error{% endif %}">
+                <strong>Hasil Prediksi:</strong> {{ prediction }}
+            </div>
+        {% endif %}
+
+        <div class="plot">
+            <h2>Grafik Training Model</h2>
+            <img src="data:image/png;base64,{{ plot_url }}" alt="Training Plot" style="max-width:100%;">
+        </div>
+    </div>
+</body>
+</html>
